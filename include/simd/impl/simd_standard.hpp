@@ -193,6 +193,10 @@ namespace simd {
             return -(a * b) - c;
         }
 
+        [[nodiscard]] SIMD_INLINE static auto inv(const type x) noexcept -> type {
+            return std::bit_cast<float>(~std::bit_cast<std::uint32_t>(x));
+        }
+
         [[nodiscard]] SIMD_INLINE static auto conj(const type a, const type b) noexcept -> type {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) & std::bit_cast<std::uint32_t>(b));
         }
