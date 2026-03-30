@@ -76,6 +76,6 @@ namespace simd {
         const simd<T, A, I> t
     ) noexcept -> simd<T, A, I> {
         const auto diff = b - a;
-        return { simd_traits<T, A, I>::fmadd(t, diff, a) };
+        return { simd_traits<T, A, I>::fmadd(t.data, diff.data, a.data) };
     }
 }
