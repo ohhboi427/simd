@@ -15,6 +15,7 @@ target_sources(simd
         "../include/simd/simd.hpp"
         "../include/simd/traits.hpp"
         "../include/simd/impl/simd_standard.hpp"
+        "../include/simd/impl/simd_sse42.hpp"
 
     FILE_SET generated_headers TYPE HEADERS
         BASE_DIRS "${CMAKE_CURRENT_BINARY_DIR}" FILES

@@ -14,8 +14,6 @@ namespace simd {
     }
 
     namespace isa {
-        struct standard;
-
         template<typename I>
         struct prior_isa;
 

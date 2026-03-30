@@ -4,6 +4,10 @@
 
 #include "traits.hpp"
 #include "impl/simd_standard.hpp"
+#include "impl/simd_sse42.hpp"
+
+#include <concepts>
+#include <utility>
 
 namespace simd {
     SIMD_EXPORT auto hello_world() -> void;
@@ -14,6 +18,21 @@ namespace simd {
         using type   = traits::type;
 
         type data;
+
+        simd() noexcept
+            : data{ traits::set1(T{}) } {}
+
+        simd(const type data) noexcept // NOLINT
+            : data{ data } {}
+
+        explicit simd(const T scalar) noexcept
+            requires (!std::same_as<T, type>)
+            : data{ traits::set1(scalar) } {}
+
+        template<std::convertible_to<T>... Args>
+            requires (sizeof...(Args) == traits::LANES)
+        explicit simd(Args&&... args) noexcept
+            : data{ traits::setr(std::forward<Args>(args)...) } {}
     };
 
     template<typename T, typename A, typename I>

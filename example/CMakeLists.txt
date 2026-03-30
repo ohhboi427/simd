@@ -5,6 +5,11 @@ target_link_libraries(example
     Simd::Simd
 )
 
+target_compile_options(example
+    PRIVATE
+    -msse4.2
+)
+
 if(WIN32)
     add_custom_target(simd_copy_dlls ALL
         COMMAND ${CMAKE_COMMAND} -E copy_if_different

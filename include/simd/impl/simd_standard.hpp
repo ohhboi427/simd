@@ -6,14 +6,32 @@
 #include <cstdint>
 
 namespace simd {
-    template<>
-    struct isa::default_abi<isa::standard> {
-        using type = abi::scalar;
-    };
+    namespace isa {
+        struct standard;
+
+        template<>
+        struct default_abi<standard> {
+            using type = abi::scalar;
+        };
+    }
 
     template<>
     struct simd_traits<std::int32_t, abi::scalar, isa::standard> {
         using type = std::int32_t;
+
+        static constexpr int LANES = 1;
+
+        [[nodiscard]] static auto set1(const std::int32_t x) noexcept -> type {
+            return x;
+        }
+
+        [[nodiscard]] static auto set(const std::int32_t x) noexcept -> type {
+            return x;
+        }
+
+        [[nodiscard]] static auto setr(const std::int32_t x) noexcept -> type {
+            return x;
+        }
 
         [[nodiscard]] static auto neg(const type a) noexcept -> type {
             return -a;
@@ -33,6 +51,10 @@ namespace simd {
 
         [[nodiscard]] static auto div(const type a, const type b) noexcept -> type {
             return a / b;
+        }
+
+        [[nodiscard]] static auto inv(const type a) noexcept -> type {
+            return ~a;
         }
 
         [[nodiscard]] static auto conj(const type a, const type b) noexcept -> type {
@@ -63,6 +85,20 @@ namespace simd {
     template<>
     struct simd_traits<float, abi::scalar, isa::standard> {
         using type = float;
+
+        static constexpr int LANES = 1;
+
+        [[nodiscard]] static auto set1(const float x) noexcept -> type {
+            return x;
+        }
+
+        [[nodiscard]] static auto set(const float x) noexcept -> type {
+            return x;
+        }
+
+        [[nodiscard]] static auto setr(const float x) noexcept -> type {
+            return x;
+        }
 
         [[nodiscard]] static auto neg(const type a) noexcept -> type {
             return -a;
