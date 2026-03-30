@@ -7,6 +7,5 @@ target_link_libraries(example
 
 target_compile_options(example
     PRIVATE
-    -msse4.2
-    -mavx2
+    -march=native
 )
