@@ -79,6 +79,22 @@ namespace simd {
             return _mm_mullo_epi32(a, b);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto fmadd(const type a, const type b, const type c) noexcept -> type {
+            return add(mul(a, b), c);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmadd(const type a, const type b, const type c) noexcept -> type {
+            return sub(c, mul(a, b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fmsub(const type a, const type b, const type c) noexcept -> type {
+            return sub(mul(a, b), c);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmsub(const type a, const type b, const type c) noexcept -> type {
+            return neg(add(mul(a, b), c));
+        }
+
         [[nodiscard]] SIMD_INLINE static auto inv(const type x) noexcept -> type {
             const __m128i all_ones = _mm_cmpeq_epi32(x, x);
             return _mm_xor_si128(all_ones, x);
@@ -175,6 +191,38 @@ namespace simd {
             return _mm_mul_ps(a, b);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto fmadd(const type a, const type b, const type c) noexcept -> type {
+#if defined(__FMA__)
+            return _mm_fmadd_ps(a, b, c);
+#else
+            return add(mul(a, b), c);
+#endif
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmadd(const type a, const type b, const type c) noexcept -> type {
+#if defined(__FMA__)
+            return _mm_fnmadd_ps(a, b, c);
+#else
+            return sub(c, mul(a, b));
+#endif
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fmsub(const type a, const type b, const type c) noexcept -> type {
+#if defined(__FMA__)
+            return _mm_fmsub_ps(a, b, c);
+#else
+            return sub(mul(a, b), c);
+#endif
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmsub(const type a, const type b, const type c) noexcept -> type {
+#if defined(__FMA__)
+            return _mm_fnmsub_ps(a, b, c);
+#else
+            return neg(add(mul(a, b), c));
+#endif
+        }
+
         [[nodiscard]] SIMD_INLINE static auto inv(const type a) noexcept -> type {
             const __m128i all_ones = _mm_cmpeq_epi32(_mm_setzero_si128(), _mm_setzero_si128());
             return _mm_xor_ps(_mm_castsi128_ps(all_ones), a);
@@ -193,7 +241,7 @@ namespace simd {
         }
 
         [[nodiscard]] SIMD_INLINE static auto trunc(const type x) noexcept -> type {
-            return _mm_round_ps(x, _MM_FROUND_TO_NEAREST_INT);
+            return _mm_round_ps(x, _MM_FROUND_TO_ZERO);
         }
 
         [[nodiscard]] SIMD_INLINE static auto round(const type x) noexcept -> type {

@@ -6,6 +6,42 @@
 
 namespace simd {
     template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto fmadd(
+        const simd<T, A, I> a,
+        const simd<T, A, I> b,
+        const simd<T, A, I> c
+    ) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::fmadd(a.data, b.data, c.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto fnmadd(
+        const simd<T, A, I> a,
+        const simd<T, A, I> b,
+        const simd<T, A, I> c
+    ) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::fnmadd(a.data, b.data, c.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto fmsub(
+        const simd<T, A, I> a,
+        const simd<T, A, I> b,
+        const simd<T, A, I> c
+    ) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::fmsub(a.data, b.data, c.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto fnmsub(
+        const simd<T, A, I> a,
+        const simd<T, A, I> b,
+        const simd<T, A, I> c
+    ) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::fnmsub(a.data, b.data, c.data) };
+    }
+
+    template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::neg(x.data) };
     }

@@ -64,9 +64,9 @@ namespace simd {
 #if defined(__AVX2__)
     using native_isa = isa::avx2;
 #elif defined(__SSE4_2__)
-    using available_isa = isa::sse42;
+    using native_isa = isa::sse42;
 #else
-    using available_isa = isa::standard;
+    using native_isa = isa::standard;
 #endif
 
     template<typename T, typename A = isa::default_abi<native_isa>>

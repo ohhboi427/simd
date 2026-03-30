@@ -72,6 +72,22 @@ namespace simd {
             return a / b;
         }
 
+        [[nodiscard]] SIMD_INLINE static auto fmadd(const type a, const type b, const type c) noexcept -> type {
+            return a * b + c;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmadd(const type a, const type b, const type c) noexcept -> type {
+            return -(a * b) + c;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fmsub(const type a, const type b, const type c) noexcept -> type {
+            return a * b - c;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmsub(const type a, const type b, const type c) noexcept -> type {
+            return -(a * b) - c;
+        }
+
         [[nodiscard]] SIMD_INLINE static auto inv(const type x) noexcept -> type {
             return ~x;
         }
@@ -159,6 +175,22 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto div(const type a, const type b) noexcept -> type {
             return a / b;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fmadd(const type a, const type b, const type c) noexcept -> type {
+            return a * b + c;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmadd(const type a, const type b, const type c) noexcept -> type {
+            return -(a * b) + c;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fmsub(const type a, const type b, const type c) noexcept -> type {
+            return a * b - c;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto fnmsub(const type a, const type b, const type c) noexcept -> type {
+            return -(a * b) - c;
         }
 
         [[nodiscard]] SIMD_INLINE static auto conj(const type a, const type b) noexcept -> type {
