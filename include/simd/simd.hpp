@@ -6,6 +6,7 @@
 #include "impl/simd_standard.hpp"
 #include "impl/simd_sse42.hpp"
 
+#include <array>
 #include <concepts>
 #include <utility>
 
@@ -33,6 +34,29 @@ namespace simd {
             requires (sizeof...(Args) == traits::LANES)
         explicit simd(Args&&... args) noexcept
             : data{ traits::setr(std::forward<Args>(args)...) } {}
+
+        [[nodiscard]] static auto load_aligned(const T* src) noexcept -> simd {
+            return { traits::load(src) };
+        }
+
+        [[nodiscard]] static auto load_unaligned(const T* src) noexcept -> simd {
+            return { traits::loadu(src) };
+        }
+
+        auto store_aligned(T* dest) const noexcept -> void {
+            traits::store(data, dest);
+        }
+
+        auto store_unaligned(T* dest) const noexcept -> void {
+            traits::storeu(data, dest);
+        }
+
+        [[nodiscard]] auto get() const noexcept -> std::array<T, traits::LANES> {
+            std::array<T, traits::LANES> dest;
+            traits::storeu(data, dest.data());
+
+            return dest;
+        }
     };
 
     template<typename T, typename A, typename I>

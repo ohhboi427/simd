@@ -33,6 +33,22 @@ namespace simd {
             return x;
         }
 
+        [[nodiscard]] static auto load(const std::int32_t* p) noexcept -> type {
+            return *p;
+        }
+
+        [[nodiscard]] static auto loadu(const std::int32_t* p) noexcept -> type {
+            return *p;
+        }
+
+        static auto store(const type a, std::int32_t* p) noexcept -> void {
+            *p = a;
+        }
+
+        static auto storeu(const type a, std::int32_t* p) noexcept -> void {
+            *p = a;
+        }
+
         [[nodiscard]] static auto neg(const type a) noexcept -> type {
             return -a;
         }
@@ -98,6 +114,22 @@ namespace simd {
 
         [[nodiscard]] static auto setr(const float x) noexcept -> type {
             return x;
+        }
+
+        [[nodiscard]] static auto load(const float* p) noexcept -> type {
+            return *p;
+        }
+
+        [[nodiscard]] static auto loadu(const float* p) noexcept -> type {
+            return *p;
+        }
+
+        static auto store(const type a, float* p) noexcept -> void {
+            *p = a;
+        }
+
+        static auto storeu(const type a, float* p) noexcept -> void {
+            *p = a;
         }
 
         [[nodiscard]] static auto neg(const type a) noexcept -> type {

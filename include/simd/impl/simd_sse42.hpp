@@ -45,6 +45,22 @@ namespace simd {
             return _mm_setr_epi32(x0, x1, x2, x3);
         }
 
+        [[nodiscard]] static auto load(const std::int32_t* p) noexcept -> type {
+            return _mm_load_si128(reinterpret_cast<const __m128i*>(p));
+        }
+
+        [[nodiscard]] static auto loadu(const std::int32_t* p) noexcept -> type {
+            return _mm_loadu_si128(reinterpret_cast<const __m128i*>(p));
+        }
+
+        static auto store(const type a, std::int32_t* p) noexcept -> void {
+            _mm_store_si128(reinterpret_cast<__m128i*>(p), a);
+        }
+
+        static auto storeu(const type a, std::int32_t* p) noexcept -> void {
+            _mm_storeu_si128(reinterpret_cast<__m128i*>(p), a);
+        }
+
         [[nodiscard]] static auto neg(const type a) noexcept -> type {
             return _mm_sub_epi32(_mm_setzero_si128(), a);
         }
@@ -117,6 +133,22 @@ namespace simd {
             const float x3
         ) noexcept -> type {
             return _mm_setr_ps(x0, x1, x2, x3);
+        }
+
+        [[nodiscard]] static auto load(const float* p) noexcept -> type {
+            return _mm_load_ps(p);
+        }
+
+        [[nodiscard]] static auto loadu(const float* p) noexcept -> type {
+            return _mm_loadu_ps(p);
+        }
+
+        static auto store(const type a, float* p) noexcept -> void {
+            _mm_store_ps(p, a);
+        }
+
+        static auto storeu(const type a, float* p) noexcept -> void {
+            _mm_storeu_ps(p, a);
         }
 
         [[nodiscard]] static auto neg(const type a) noexcept -> type {
