@@ -10,7 +10,10 @@
 
 namespace simd {
     namespace isa {
-        struct sse42;
+        template<>
+        struct prior_isa<sse42> {
+            using type = standard;
+        };
 
         template<>
         struct default_abi<sse42> {

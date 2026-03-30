@@ -118,4 +118,15 @@ namespace simd {
     [[nodiscard]] SIMD_INLINE auto operator>>(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::rshift(a.data, count) };
     }
+
+#if defined(__AVX2__)
+    using native_isa = isa::avx2;
+#elif defined(__SSE4_2__)
+    using available_isa = isa::sse42;
+#else
+    using available_isa = isa::standard;
+#endif
+
+    template<typename T, typename A = isa::default_abi<native_isa>>
+    using native_simd = simd<T, A, native_isa>;
 }

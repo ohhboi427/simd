@@ -9,7 +9,10 @@
 
 namespace simd {
     namespace isa {
-        struct avx2;
+        template<>
+        struct prior_isa<avx2> {
+            using type = sse42;
+        };
 
         template<>
         struct default_abi<avx2> {

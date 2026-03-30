@@ -8,7 +8,10 @@
 
 namespace simd {
     namespace isa {
-        struct standard;
+        template<>
+        struct prior_isa<standard> {
+            using type = void;
+        };
 
         template<>
         struct default_abi<standard> {
