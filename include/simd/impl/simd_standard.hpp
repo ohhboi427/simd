@@ -96,6 +96,10 @@ namespace simd {
             return a & b;
         }
 
+        [[nodiscard]] SIMD_INLINE static auto conjinv(const type a, const type b) noexcept -> type {
+            return ~a & b;
+        }
+
         [[nodiscard]] SIMD_INLINE static auto disj(const type a, const type b) noexcept -> type {
             return a | b;
         }
@@ -114,6 +118,18 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto rshift2(const type a, const int count) noexcept -> type {
             return std::bit_cast<std::int32_t>(std::bit_cast<std::uint32_t>(a) >> count);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
+            return std::abs(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto min(const type a, const type b) noexcept -> type {
+            return std::min(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto max(const type a, const type b) noexcept -> type {
+            return std::max(a, b);
         }
 
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> float {
@@ -201,12 +217,20 @@ namespace simd {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) & std::bit_cast<std::uint32_t>(b));
         }
 
+        [[nodiscard]] SIMD_INLINE static auto conjinv(const type a, const type b) noexcept -> type {
+            return std::bit_cast<float>(~std::bit_cast<std::uint32_t>(a) & std::bit_cast<std::uint32_t>(b));
+        }
+
         [[nodiscard]] SIMD_INLINE static auto disj(const type a, const type b) noexcept -> type {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) | std::bit_cast<std::uint32_t>(b));
         }
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) ^ std::bit_cast<std::uint32_t>(b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
+            return std::abs(x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto trunc(const type x) noexcept -> type {
@@ -223,6 +247,22 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto ceil(const type x) noexcept -> type {
             return std::ceil(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto min(const type a, const type b) noexcept -> type {
+            return std::min(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto max(const type a, const type b) noexcept -> type {
+            return std::max(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto sqrt(const type x) noexcept -> type {
+            return std::sqrt(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto rsqrt(const type x) noexcept -> type {
+            return 1.0F / std::sqrt(x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> std::int32_t {

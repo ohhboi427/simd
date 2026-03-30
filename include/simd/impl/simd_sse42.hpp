@@ -104,6 +104,10 @@ namespace simd {
             return _mm_and_si128(a, b);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto conjinv(const type a, const type b) noexcept -> type {
+            return _mm_andnot_si128(a, b);
+        }
+
         [[nodiscard]] SIMD_INLINE static auto disj(const type a, const type b) noexcept -> type {
             return _mm_or_si128(a, b);
         }
@@ -122,6 +126,18 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto rshift2(const type a, const int count) noexcept -> type {
             return _mm_srli_epi32(a, count);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
+            return _mm_abs_epi32(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto min(const type a, const type b) noexcept -> type {
+            return _mm_min_epi32(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto max(const type a, const type b) noexcept -> type {
+            return _mm_max_epi32(a, b);
         }
 
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m128 {
@@ -232,12 +248,21 @@ namespace simd {
             return _mm_and_ps(a, b);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto conjinv(const type a, const type b) noexcept -> type {
+            return _mm_andnot_ps(a, b);
+        }
+
         [[nodiscard]] SIMD_INLINE static auto disj(const type a, const type b) noexcept -> type {
             return _mm_or_ps(a, b);
         }
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return _mm_xor_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
+            const __m128 sign_bit = _mm_set1_ps(-0.0F);
+            return _mm_andnot_ps(sign_bit, x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto trunc(const type x) noexcept -> type {
@@ -254,6 +279,22 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto ceil(const type x) noexcept -> type {
             return _mm_ceil_ps(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto min(const type a, const type b) noexcept -> type {
+            return _mm_min_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto max(const type a, const type b) noexcept -> type {
+            return _mm_max_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto sqrt(const type x) noexcept -> type {
+            return _mm_sqrt_ps(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto rsqrt(const type x) noexcept -> type {
+            return _mm_rsqrt_ps(x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m128i {
