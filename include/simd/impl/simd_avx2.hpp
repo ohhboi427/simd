@@ -70,8 +70,8 @@ namespace simd {
             _mm256_storeu_si256(reinterpret_cast<__m256i*>(p), a);
         }
 
-        [[nodiscard]] SIMD_INLINE static auto neg(const type a) noexcept -> type {
-            return _mm256_sub_epi32(_mm256_setzero_si256(), a);
+        [[nodiscard]] SIMD_INLINE static auto neg(const type x) noexcept -> type {
+            return _mm256_sub_epi32(_mm256_setzero_si256(), x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto add(const type a, const type b) noexcept -> type {
@@ -86,9 +86,9 @@ namespace simd {
             return _mm256_mullo_epi32(a, b);
         }
 
-        [[nodiscard]] SIMD_INLINE static auto inv(const type a) noexcept -> type {
-            const __m256i all_ones = _mm256_cmpeq_epi32(a, a);
-            return _mm256_xor_si256(all_ones, a);
+        [[nodiscard]] SIMD_INLINE static auto inv(const type x) noexcept -> type {
+            const __m256i all_ones = _mm256_cmpeq_epi32(x, x);
+            return _mm256_xor_si256(all_ones, x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto conj(const type a, const type b) noexcept -> type {
@@ -113,6 +113,14 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto rshift2(const type a, const int count) noexcept -> type {
             return _mm256_srli_epi32(a, count);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m256 {
+            return _mm256_castsi256_ps(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cvt(const type x) noexcept -> __m256 {
+            return _mm256_cvtepi32_ps(x);
         }
     };
 
@@ -166,8 +174,8 @@ namespace simd {
             _mm256_storeu_ps(p, a);
         }
 
-        [[nodiscard]] SIMD_INLINE static auto neg(const type a) noexcept -> type {
-            return _mm256_xor_ps(a, _mm256_set1_ps(-0.0F));
+        [[nodiscard]] SIMD_INLINE static auto neg(const type x) noexcept -> type {
+            return _mm256_xor_ps(x, _mm256_set1_ps(-0.0F));
         }
 
         [[nodiscard]] SIMD_INLINE static auto add(const type a, const type b) noexcept -> type {
@@ -197,6 +205,14 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return _mm256_xor_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m256i {
+            return _mm256_castps_si256(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cvt(const type x) noexcept -> __m256i {
+            return _mm256_cvtps_epi32(x);
         }
     };
 }

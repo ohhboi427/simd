@@ -51,8 +51,8 @@ namespace simd {
             *p = a;
         }
 
-        [[nodiscard]] SIMD_INLINE static auto neg(const type a) noexcept -> type {
-            return -a;
+        [[nodiscard]] SIMD_INLINE static auto neg(const type x) noexcept -> type {
+            return -x;
         }
 
         [[nodiscard]] SIMD_INLINE static auto add(const type a, const type b) noexcept -> type {
@@ -71,8 +71,8 @@ namespace simd {
             return a / b;
         }
 
-        [[nodiscard]] SIMD_INLINE static auto inv(const type a) noexcept -> type {
-            return ~a;
+        [[nodiscard]] SIMD_INLINE static auto inv(const type x) noexcept -> type {
+            return ~x;
         }
 
         [[nodiscard]] SIMD_INLINE static auto conj(const type a, const type b) noexcept -> type {
@@ -97,6 +97,14 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto rshift2(const type a, const int count) noexcept -> type {
             return std::bit_cast<std::int32_t>(std::bit_cast<std::uint32_t>(a) >> count);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> float {
+            return std::bit_cast<float>(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cvt(const type x) noexcept -> float {
+            return static_cast<float>(x);
         }
     };
 
@@ -132,8 +140,8 @@ namespace simd {
             *p = a;
         }
 
-        [[nodiscard]] SIMD_INLINE static auto neg(const type a) noexcept -> type {
-            return -a;
+        [[nodiscard]] SIMD_INLINE static auto neg(const type x) noexcept -> type {
+            return -x;
         }
 
         [[nodiscard]] SIMD_INLINE static auto add(const type a, const type b) noexcept -> type {
@@ -162,6 +170,14 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) ^ std::bit_cast<std::uint32_t>(b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> std::int32_t {
+            return std::bit_cast<std::int32_t>(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cvt(const type x) noexcept -> std::int32_t {
+            return static_cast<std::int32_t>(x);
         }
     };
 }

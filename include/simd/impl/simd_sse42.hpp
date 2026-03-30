@@ -63,8 +63,8 @@ namespace simd {
             _mm_storeu_si128(reinterpret_cast<__m128i*>(p), a);
         }
 
-        [[nodiscard]] SIMD_INLINE static auto neg(const type a) noexcept -> type {
-            return _mm_sub_epi32(_mm_setzero_si128(), a);
+        [[nodiscard]] SIMD_INLINE static auto neg(const type x) noexcept -> type {
+            return _mm_sub_epi32(_mm_setzero_si128(), x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto add(const type a, const type b) noexcept -> type {
@@ -79,9 +79,9 @@ namespace simd {
             return _mm_mullo_epi32(a, b);
         }
 
-        [[nodiscard]] SIMD_INLINE static auto inv(const type a) noexcept -> type {
-            const __m128i all_ones = _mm_cmpeq_epi32(a, a);
-            return _mm_xor_si128(all_ones, a);
+        [[nodiscard]] SIMD_INLINE static auto inv(const type x) noexcept -> type {
+            const __m128i all_ones = _mm_cmpeq_epi32(x, x);
+            return _mm_xor_si128(all_ones, x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto conj(const type a, const type b) noexcept -> type {
@@ -106,6 +106,14 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto rshift2(const type a, const int count) noexcept -> type {
             return _mm_srli_epi32(a, count);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m128 {
+            return _mm_castsi128_ps(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cvt(const type x) noexcept -> __m128 {
+            return _mm_cvtepi32_ps(x);
         }
     };
 
@@ -151,8 +159,8 @@ namespace simd {
             _mm_storeu_ps(p, a);
         }
 
-        [[nodiscard]] SIMD_INLINE static auto neg(const type a) noexcept -> type {
-            return _mm_xor_ps(a, _mm_set1_ps(-0.0F));
+        [[nodiscard]] SIMD_INLINE static auto neg(const type x) noexcept -> type {
+            return _mm_xor_ps(x, _mm_set1_ps(-0.0F));
         }
 
         [[nodiscard]] SIMD_INLINE static auto add(const type a, const type b) noexcept -> type {
@@ -182,6 +190,14 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return _mm_xor_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m128i {
+            return _mm_castps_si128(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto cvt(const type x) noexcept -> __m128i {
+            return _mm_cvtps_epi32(x);
         }
     };
 }

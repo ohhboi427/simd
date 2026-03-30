@@ -8,6 +8,7 @@ auto main() -> int {
     const simd::native_simd<std::int32_t, simd::abi::m256> b{ 2 };
 
     const auto c = -a * b;
+    const auto cf = simd::simd_cvt<float>(c);
 
-    std::println("{}", c.get());
+    std::println("{}", cf.get());
 }
