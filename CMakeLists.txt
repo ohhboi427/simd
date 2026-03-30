@@ -14,7 +14,7 @@ include(FetchContent)
 
 add_subdirectory("src")
 
-option(NOISE_BUILD_EXAMPLES "Build example code" OFF)
-if(NOISE_BUILD_EXAMPLES)
+option(SIMD_BUILD_EXAMPLES "Build example code" OFF)
+if(SIMD_BUILD_EXAMPLES)
     add_subdirectory("example")
 endif()
