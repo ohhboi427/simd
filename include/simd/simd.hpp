@@ -4,9 +4,11 @@
 #include "traits.hpp"
 #include "impl/simd_standard.hpp"
 #include "impl/simd_sse42.hpp"
+#include "impl/simd_avx2.hpp"
 
 #include <array>
 #include <concepts>
+#include <cstddef>
 #include <utility>
 
 namespace simd {
@@ -14,6 +16,8 @@ namespace simd {
     struct alignas(sizeof(typename simd_traits<T, A, I>::type)) simd {
         using traits = simd_traits<T, A, I>;
         using type   = traits::type;
+
+        static constexpr std::size_t LANES = sizeof(type) / sizeof(T);
 
         type data;
 
@@ -28,9 +32,13 @@ namespace simd {
             : data{ traits::set1(scalar) } {}
 
         template<std::convertible_to<T>... Args>
-            requires (sizeof...(Args) == traits::LANES)
+            requires (sizeof...(Args) == LANES)
         explicit simd(Args&&... args) noexcept
             : data{ traits::setr(std::forward<Args>(args)...) } {}
+
+        [[nodiscard]] static constexpr auto lanes() noexcept -> std::size_t {
+            return LANES;
+        }
 
         [[nodiscard]] SIMD_INLINE static auto load_aligned(const T* src) noexcept -> simd {
             return { traits::load(src) };
@@ -48,8 +56,8 @@ namespace simd {
             traits::storeu(data, dest);
         }
 
-        [[nodiscard]] auto get() const noexcept -> std::array<T, traits::LANES> {
-            std::array<T, traits::LANES> dest;
+        [[nodiscard]] auto get() const noexcept -> std::array<T, LANES> {
+            std::array<T, LANES> dest;
             traits::storeu(data, dest.data());
 
             return dest;

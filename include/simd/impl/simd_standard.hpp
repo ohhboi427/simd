@@ -20,8 +20,6 @@ namespace simd {
     struct simd_traits<std::int32_t, abi::scalar, isa::standard> {
         using type = std::int32_t;
 
-        static constexpr int LANES = 1;
-
         [[nodiscard]] SIMD_INLINE static auto set1(const std::int32_t x) noexcept -> type {
             return x;
         }
@@ -102,8 +100,6 @@ namespace simd {
     template<>
     struct simd_traits<float, abi::scalar, isa::standard> {
         using type = float;
-
-        static constexpr int LANES = 1;
 
         [[nodiscard]] SIMD_INLINE static auto set1(const float x) noexcept -> type {
             return x;

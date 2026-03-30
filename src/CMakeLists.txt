@@ -10,6 +10,7 @@ target_sources(simd
         "../include/simd/traits.hpp"
         "../include/simd/impl/simd_standard.hpp"
         "../include/simd/impl/simd_sse42.hpp"
+        "../include/simd/impl/simd_avx2.hpp"
 )
 
 target_compile_features(simd
