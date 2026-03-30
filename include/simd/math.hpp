@@ -68,4 +68,14 @@ namespace simd {
     [[nodiscard]] SIMD_INLINE auto rsqrt(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::rsqrt(x.data) };
     }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto lerp(
+        const simd<T, A, I> a,
+        const simd<T, A, I> b,
+        const simd<T, A, I> t
+    ) noexcept -> simd<T, A, I> {
+        const auto diff = b - a;
+        return { simd_traits<T, A, I>::fmadd(t, diff, a) };
+    }
 }
