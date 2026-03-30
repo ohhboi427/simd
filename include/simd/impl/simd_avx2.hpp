@@ -207,6 +207,22 @@ namespace simd {
             return _mm256_xor_ps(a, b);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto trunc(const type x) noexcept -> type {
+            return _mm256_round_ps(x, _MM_FROUND_TO_NEAREST_INT);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto round(const type x) noexcept -> type {
+            return _mm256_round_ps(x, _MM_FROUND_TO_NEAREST_INT);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto floor(const type x) noexcept -> type {
+            return _mm256_floor_ps(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ceil(const type x) noexcept -> type {
+            return _mm256_ceil_ps(x);
+        }
+
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m256i {
             return _mm256_castps_si256(x);
         }

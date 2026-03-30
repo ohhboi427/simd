@@ -192,6 +192,22 @@ namespace simd {
             return _mm_xor_ps(a, b);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto trunc(const type x) noexcept -> type {
+            return _mm_round_ps(x, _MM_FROUND_TO_NEAREST_INT);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto round(const type x) noexcept -> type {
+            return _mm_round_ps(x, _MM_FROUND_TO_NEAREST_INT);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto floor(const type x) noexcept -> type {
+            return _mm_floor_ps(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ceil(const type x) noexcept -> type {
+            return _mm_ceil_ps(x);
+        }
+
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> __m128i {
             return _mm_castps_si128(x);
         }

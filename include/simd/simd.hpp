@@ -75,8 +75,8 @@ namespace simd {
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> a) noexcept -> simd<T, A, I> {
-        return { simd_traits<T, A, I>::neg(a.data) };
+    [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::neg(x.data) };
     }
 
     template<typename T, typename A, typename I>
@@ -100,8 +100,8 @@ namespace simd {
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] SIMD_INLINE auto operator~(const simd<T, A, I> a) noexcept -> simd<T, A, I> {
-        return { simd_traits<T, A, I>::inv(a.data) };
+    [[nodiscard]] SIMD_INLINE auto operator~(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::inv(x.data) };
     }
 
     template<typename T, typename A, typename I>
@@ -127,6 +127,26 @@ namespace simd {
     template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto operator>>(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::rshift(a.data, count) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto trunc(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::trunc(x.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto round(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::round(x.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto floor(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::floor(x.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto ceil(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::ceil(x.data) };
     }
 
 #if defined(__AVX2__)

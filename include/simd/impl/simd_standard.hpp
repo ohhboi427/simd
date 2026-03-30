@@ -4,6 +4,7 @@
 #include "../traits.hpp"
 
 #include <bit>
+#include <cmath>
 #include <cstdint>
 
 namespace simd {
@@ -170,6 +171,22 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) ^ std::bit_cast<std::uint32_t>(b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto trunc(const type x) noexcept -> type {
+            return std::trunc(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto round(const type x) noexcept -> type {
+            return std::round(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto floor(const type x) noexcept -> type {
+            return std::floor(x);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ceil(const type x) noexcept -> type {
+            return std::ceil(x);
         }
 
         [[nodiscard]] SIMD_INLINE static auto cast(const type x) noexcept -> std::int32_t {
