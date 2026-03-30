@@ -1,5 +1,9 @@
 #pragma once
 
+#include "macros.hpp"
+#include "traits.hpp"
+#include "type.hpp"
+
 namespace simd {
     template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto trunc(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
