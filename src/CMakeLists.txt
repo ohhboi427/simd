@@ -13,6 +13,8 @@ target_sources(simd
     FILE_SET HEADERS
         BASE_DIRS "../include" FILES
         "../include/simd/simd.hpp"
+        "../include/simd/traits.hpp"
+        "../include/simd/impl/simd_standard.hpp"
 
     FILE_SET generated_headers TYPE HEADERS
         BASE_DIRS "${CMAKE_CURRENT_BINARY_DIR}" FILES
@@ -20,6 +22,11 @@ target_sources(simd
 )
 
 target_compile_features(simd
-    PRIVATE
+    PUBLIC
     cxx_std_23
+)
+
+target_compile_options(simd
+    PUBLIC
+    -mavx512vl
 )

@@ -1,5 +1,8 @@
 #include <simd/simd.hpp>
 
 auto main() -> int {
-    simd::hello_world();
+    simd::simd<int> a{ 1 };
+    simd::simd<int> b{ 2 };
+
+    const auto c = a + b;
 }
