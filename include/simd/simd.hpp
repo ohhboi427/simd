@@ -1,7 +1,6 @@
 #pragma once
 
-#include "simd_export.h"
-
+#include "macros.hpp"
 #include "traits.hpp"
 #include "impl/simd_standard.hpp"
 #include "impl/simd_sse42.hpp"
@@ -11,8 +10,6 @@
 #include <utility>
 
 namespace simd {
-    SIMD_EXPORT auto hello_world() -> void;
-
     template<typename T, typename A = abi::scalar, typename I = isa::standard>
     struct alignas(sizeof(typename simd_traits<T, A, I>::type)) simd {
         using traits = simd_traits<T, A, I>;
@@ -35,19 +32,19 @@ namespace simd {
         explicit simd(Args&&... args) noexcept
             : data{ traits::setr(std::forward<Args>(args)...) } {}
 
-        [[nodiscard]] static auto load_aligned(const T* src) noexcept -> simd {
+        [[nodiscard]] SIMD_INLINE static auto load_aligned(const T* src) noexcept -> simd {
             return { traits::load(src) };
         }
 
-        [[nodiscard]] static auto load_unaligned(const T* src) noexcept -> simd {
+        [[nodiscard]] SIMD_INLINE static auto load_unaligned(const T* src) noexcept -> simd {
             return { traits::loadu(src) };
         }
 
-        auto store_aligned(T* dest) const noexcept -> void {
+        SIMD_INLINE auto store_aligned(T* dest) const noexcept -> void {
             traits::store(data, dest);
         }
 
-        auto store_unaligned(T* dest) const noexcept -> void {
+        SIMD_INLINE auto store_unaligned(T* dest) const noexcept -> void {
             traits::storeu(data, dest);
         }
 
@@ -60,52 +57,57 @@ namespace simd {
     };
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator-(const simd<T, A, I> a) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> a) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::neg(a.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator+(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator+(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::add(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator-(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::sub(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator*(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator*(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::mul(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator/(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator/(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::div(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator&(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator~(const simd<T, A, I> a) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::inv(a.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator&(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::conj(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator|(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator|(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::disj(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator^(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator^(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::exor(a.data, b.data) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator<<(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator<<(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::lshift(a.data, count) };
     }
 
     template<typename T, typename A, typename I>
-    [[nodiscard]] auto operator>>(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
+    [[nodiscard]] SIMD_INLINE auto operator>>(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::rshift(a.data, count) };
     }
 }
