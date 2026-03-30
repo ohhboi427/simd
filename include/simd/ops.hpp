@@ -77,6 +77,11 @@ namespace simd {
     }
 
     template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto conjinv(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::conjinv(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto disj(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::disj(a.data, b.data) };
     }
