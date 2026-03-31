@@ -3,6 +3,7 @@
 #include "../macros.hpp"
 #include "../traits.hpp"
 
+#include <algorithm>
 #include <bit>
 #include <cmath>
 #include <cstdint>
