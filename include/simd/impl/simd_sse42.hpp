@@ -153,6 +153,10 @@ namespace simd {
             return inv(_mm_cmpgt_epi32(a, b));
         }
 
+        [[nodiscard]] SIMD_INLINE static auto blend(const type a, const type b, const type mask) noexcept -> type {
+            return _mm_blendv_epi8(a, b, mask);
+        }
+
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
             return _mm_abs_epi32(x);
         }
@@ -307,6 +311,10 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
             return _mm_cmple_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto blend(const type a, const type b, const type mask) noexcept -> type {
+            return _mm_blendv_ps(a, b, mask);
         }
 
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {

@@ -137,6 +137,15 @@ namespace simd {
     }
 
     template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto blend(
+        const simd<T, A, I> a,
+        const simd<T, A, I> b,
+        const simd<T, A, I> mask
+    ) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::blend(a.data, b.data, mask.data) };
+    }
+
+    template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::neg(x.data) };
     }

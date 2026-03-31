@@ -144,6 +144,10 @@ namespace simd {
             return (a <= b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
         }
 
+        [[nodiscard]] SIMD_INLINE static auto blend(const type a, const type b, const type mask) noexcept -> type {
+            return (mask != 0) ? b : a;
+        }
+
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
             return std::abs(x);
         }
@@ -275,6 +279,10 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
             return (a <= b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto blend(const type a, const type b, const type mask) noexcept -> type {
+            return (std::bit_cast<std::uint32_t>(mask) != 0U) ? b : a;
         }
 
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
