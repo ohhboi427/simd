@@ -6,6 +6,7 @@
 #include <cstdint>
 
 #include <emmintrin.h>
+#include <immintrin.h>
 #include <smmintrin.h>
 
 namespace simd {
@@ -126,6 +127,30 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto rshift2(const type a, const int count) noexcept -> type {
             return _mm_srli_epi32(a, count);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto eq(const type a, const type b) noexcept -> type {
+            return _mm_cmpeq_epi32(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto neq(const type a, const type b) noexcept -> type {
+            return inv(_mm_cmpeq_epi32(a, b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto gt(const type a, const type b) noexcept -> type {
+            return _mm_cmpgt_epi32(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ge(const type a, const type b) noexcept -> type {
+            return inv(_mm_cmpgt_epi32(b, a)); // NOLINT
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto lt(const type a, const type b) noexcept -> type {
+            return _mm_cmpgt_epi32(b, a); // NOLINT
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
+            return inv(_mm_cmpgt_epi32(a, b));
         }
 
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
@@ -258,6 +283,30 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return _mm_xor_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto eq(const type a, const type b) noexcept -> type {
+            return _mm_cmpeq_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto neq(const type a, const type b) noexcept -> type {
+            return _mm_cmpneq_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto gt(const type a, const type b) noexcept -> type {
+            return _mm_cmpgt_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ge(const type a, const type b) noexcept -> type {
+            return _mm_cmpge_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto lt(const type a, const type b) noexcept -> type {
+            return _mm_cmplt_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
+            return _mm_cmple_ps(a, b);
         }
 
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {

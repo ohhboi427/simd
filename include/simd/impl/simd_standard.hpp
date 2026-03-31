@@ -120,6 +120,30 @@ namespace simd {
             return std::bit_cast<std::int32_t>(std::bit_cast<std::uint32_t>(a) >> count);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto eq(const type a, const type b) noexcept -> type {
+            return (a == b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto neq(const type a, const type b) noexcept -> type {
+            return (a != b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto gt(const type a, const type b) noexcept -> type {
+            return (a > b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ge(const type a, const type b) noexcept -> type {
+            return (a >= b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto lt(const type a, const type b) noexcept -> type {
+            return (a < b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
+            return (a <= b) ? std::bit_cast<std::int32_t>(0xFFFFFFFFU) : 0;
+        }
+
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
             return std::abs(x);
         }
@@ -227,6 +251,30 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return std::bit_cast<float>(std::bit_cast<std::uint32_t>(a) ^ std::bit_cast<std::uint32_t>(b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto eq(const type a, const type b) noexcept -> type {
+            return (a == b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto neq(const type a, const type b) noexcept -> type {
+            return (a != b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto gt(const type a, const type b) noexcept -> type {
+            return (a > b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ge(const type a, const type b) noexcept -> type {
+            return (a >= b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto lt(const type a, const type b) noexcept -> type {
+            return (a < b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
+            return (a <= b) ? std::bit_cast<float>(0xFFFFFFFFU) : 0.0F;
         }
 
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {

@@ -135,6 +135,30 @@ namespace simd {
             return _mm256_srli_epi32(a, count);
         }
 
+        [[nodiscard]] SIMD_INLINE static auto eq(const type a, const type b) noexcept -> type {
+            return _mm256_cmpeq_epi32(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto neq(const type a, const type b) noexcept -> type {
+            return inv(_mm256_cmpeq_epi32(a, b));
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto gt(const type a, const type b) noexcept -> type {
+            return _mm256_cmpgt_epi32(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ge(const type a, const type b) noexcept -> type {
+            return inv(_mm256_cmpgt_epi32(b, a)); // NOLINT
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto lt(const type a, const type b) noexcept -> type {
+            return _mm256_cmpgt_epi32(b, a); // NOLINT
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
+            return inv(_mm256_cmpgt_epi32(a, b));
+        }
+
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {
             return _mm256_abs_epi32(x);
         }
@@ -273,6 +297,30 @@ namespace simd {
 
         [[nodiscard]] SIMD_INLINE static auto exor(const type a, const type b) noexcept -> type {
             return _mm256_xor_ps(a, b);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto eq(const type a, const type b) noexcept -> type {
+            return _mm256_cmp_ps(a, b, _CMP_EQ_OQ);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto neq(const type a, const type b) noexcept -> type {
+            return _mm256_cmp_ps(a, b, _CMP_NEQ_OQ);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto gt(const type a, const type b) noexcept -> type {
+            return _mm256_cmp_ps(a, b, _CMP_GT_OQ);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto ge(const type a, const type b) noexcept -> type {
+            return _mm256_cmp_ps(a, b, _CMP_GE_OQ);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto lt(const type a, const type b) noexcept -> type {
+            return _mm256_cmp_ps(a, b, _CMP_LT_OQ);
+        }
+
+        [[nodiscard]] SIMD_INLINE static auto le(const type a, const type b) noexcept -> type {
+            return _mm256_cmp_ps(a, b, _CMP_LE_OQ);
         }
 
         [[nodiscard]] SIMD_INLINE static auto abs(const type x) noexcept -> type {

@@ -107,6 +107,36 @@ namespace simd {
     }
 
     template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto eq(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::eq(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto neq(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::neq(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto gt(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::gt(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto ge(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::ge(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto lt(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::lt(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto le(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::le(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto operator-(const simd<T, A, I> x) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::neg(x.data) };
     }
@@ -159,5 +189,35 @@ namespace simd {
     template<typename T, typename A, typename I>
     [[nodiscard]] SIMD_INLINE auto operator>>(const simd<T, A, I> a, const int count) noexcept -> simd<T, A, I> {
         return { simd_traits<T, A, I>::rshift(a.data, count) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator==(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::eq(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator!=(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::neq(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator>(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::gt(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator>=(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::ge(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator<(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::lt(a.data, b.data) };
+    }
+
+    template<typename T, typename A, typename I>
+    [[nodiscard]] SIMD_INLINE auto operator<=(const simd<T, A, I> a, const simd<T, A, I> b) noexcept -> simd<T, A, I> {
+        return { simd_traits<T, A, I>::le(a.data, b.data) };
     }
 }
