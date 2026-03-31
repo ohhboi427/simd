@@ -60,15 +60,4 @@ namespace simd {
             return dest;
         }
     };
-
-#if defined(__AVX2__)
-    using native_isa = isa::avx2;
-#elif defined(__SSE4_2__)
-    using native_isa = isa::sse42;
-#else
-    using native_isa = isa::standard;
-#endif
-
-    template<typename T, typename A = isa::default_abi<native_isa>>
-    using native_simd = simd<T, A, native_isa>;
 }
